@@ -7,18 +7,62 @@
     <title>En webbshop</title>
   </head>
   <body>
-    <nav>Detta är en bar med information</nav>
+    <div>Detta är en bar med information</div>
     <header>
+      <!-- lägg till aria-label="Stäng meny" för när menyn är öppen -->
       <button id="hamburger" class="hamburger" aria-label="Öppna meny">
         <span></span>
         <span></span>
         <span></span>
       </button>
-      <div class="navbar"></div>
+
+      <ul class="navbar">
+        <li>Hem</li>
+        <li>nånting</li>
+        <li>nånting</li>
+      </ul>
+
       <h1>Namn på webbshopen</h1>
+
       <button>Kundvagn?</button>
     </header>
-    <main>Main - alla produkter</main>
+    <main>
+      <h2>Munkar</h2>
+      <ul class="product-list">
+        <li>
+          <h3 class="product-name"></h3>
+          <p class="product-price"></p>
+          <div class="image-placeholder">
+            <img class="product-image" src="placeholder.png" />
+            <span class="placeholder-text">Produktbild saknas</span>
+          </div>
+        </li>
+        <li>
+          <h3 class="product-name"></h3>
+          <p class="product-price"></p>
+          <div class="image-placeholder">
+            <img class="product-image" src="placeholder.png" />
+            <span class="placeholder-text">Produktbild saknas</span>
+          </div>
+        </li>
+        <li>
+          <h3 class="product-name"></h3>
+          <p class="product-price"></p>
+          <div class="image-placeholder">
+            <img class="product-image" src="placeholder.png" />
+            <span class="placeholder-text">Produktbild saknas</span>
+          </div>
+        </li>
+        <li>
+          <h3 class="product-name"></h3>
+          <p class="product-price"></p>
+          <div class="image-placeholder">
+            <img class="product-image" src="placeholder.png" />
+            <span class="placeholder-text">Produktbild saknas</span>
+          </div>
+        </li>
+      </ul>
+    </main>
     <footer>Här finns typ kontaktinformation</footer>
     <script type="module" src="./src/main.js"></script>
   </body>
