@@ -6,6 +6,15 @@ header {
   background-color: #dfdfdf;
 }
 
+.navbar {
+  display: none;
+}
+
+.navbar.active {
+  display: flex;
+  background-color: red;
+}
+
 /*=======================================================
 ====== BUTTON ===========================================
 =======================================================*/
