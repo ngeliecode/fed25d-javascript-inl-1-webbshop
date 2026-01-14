@@ -1,4 +1,4 @@
-# Logs
+# Log files
 logs
 *.log
 npm-debug.log*
@@ -7,16 +7,28 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# JS ecosystem
 node_modules
+
+# Operating System Junk
+Desktop.ini
+Thumbs.db
+.Spotlight-V100
+.Trashes
+.DS_Store
+
+# Generated files and folders
 dist
 dist-ssr
+*.css.map
+
+# Local files
 *.local
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
