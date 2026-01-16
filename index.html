@@ -7,8 +7,8 @@
     <title>En webbshop</title>
   </head>
   <body>
-    <div>Detta är en bar med information</div>
     <header>
+      <div class="bar">Detta är en bar med information</div>
       <!-- lägg till aria-label="Stäng meny" för när menyn är öppen -->
       <button id="hamburger" class="hamburger" aria-label="Öppna meny">
         <span></span>
@@ -16,54 +16,110 @@
         <span></span>
       </button>
 
-      <ul class="navbar">
-        <li>Hem</li>
-        <li>nånting</li>
-        <li>nånting</li>
-      </ul>
-
       <h1>Namn på webbshopen</h1>
 
-      <button>Kundvagn?</button>
+      <button id="kundvagn" class="kundvagn">Icon</button>
+      <nav class="navbar">
+        <ul>
+          <li>Hem</li>
+          <li>nånting</li>
+          <li>nånting</li>
+        </ul>
+      </nav>
     </header>
     <main>
       <h2>Munkar</h2>
+      Filter<button id="filter-category">Kategori</button> Sortera<button
+        id="sort-name"
+      >
+        Namn
+      </button>
+      <button id="sort-price">Pris</button>
       <ul class="product-list">
         <li>
-          <h3 class="product-name"></h3>
-          <p class="product-price"></p>
           <div class="image-placeholder">
             <img class="product-image" src="placeholder.png" />
             <span class="placeholder-text">Produktbild saknas</span>
           </div>
+          <h3 class="product-name"></h3>
+          <p class="product-price"></p>
         </li>
         <li>
-          <h3 class="product-name"></h3>
-          <p class="product-price"></p>
           <div class="image-placeholder">
             <img class="product-image" src="placeholder.png" />
             <span class="placeholder-text">Produktbild saknas</span>
           </div>
+          <h3 class="product-name"></h3>
+          <p class="product-price"></p>
         </li>
         <li>
-          <h3 class="product-name"></h3>
-          <p class="product-price"></p>
           <div class="image-placeholder">
             <img class="product-image" src="placeholder.png" />
             <span class="placeholder-text">Produktbild saknas</span>
           </div>
+          <h3 class="product-name"></h3>
+          <p class="product-price"></p>
         </li>
         <li>
-          <h3 class="product-name"></h3>
-          <p class="product-price"></p>
           <div class="image-placeholder">
             <img class="product-image" src="placeholder.png" />
             <span class="placeholder-text">Produktbild saknas</span>
           </div>
+          <h3 class="product-name"></h3>
+          <p class="product-price"></p>
+        </li>
+        <li>
+          <div class="image-placeholder">
+            <img class="product-image" src="placeholder.png" />
+            <span class="placeholder-text">Produktbild saknas</span>
+          </div>
+          <h3 class="product-name"></h3>
+          <p class="product-price"></p>
+        </li>
+        <li>
+          <div class="image-placeholder">
+            <img class="product-image" src="placeholder.png" />
+            <span class="placeholder-text">Produktbild saknas</span>
+          </div>
+          <h3 class="product-name"></h3>
+          <p class="product-price"></p>
+        </li>
+        <li>
+          <div class="image-placeholder">
+            <img class="product-image" src="placeholder.png" />
+            <span class="placeholder-text">Produktbild saknas</span>
+          </div>
+          <h3 class="product-name"></h3>
+          <p class="product-price"></p>
+        </li>
+        <li>
+          <div class="image-placeholder">
+            <img class="product-image" src="placeholder.png" />
+            <span class="placeholder-text">Produktbild saknas</span>
+          </div>
+          <h3 class="product-name"></h3>
+          <p class="product-price"></p>
+        </li>
+        <li>
+          <div class="image-placeholder">
+            <img class="product-image" src="placeholder.png" />
+            <span class="placeholder-text">Produktbild saknas</span>
+          </div>
+          <h3 class="product-name"></h3>
+          <p class="product-price"></p>
+        </li>
+        <li>
+          <div class="image-placeholder">
+            <img class="product-image" src="placeholder.png" />
+            <span class="placeholder-text">Produktbild saknas</span>
+          </div>
+          <h3 class="product-name"></h3>
+          <p class="product-price"></p>
         </li>
       </ul>
     </main>
     <footer>Här finns typ kontaktinformation</footer>
-    <script type="module" src="./src/main.js"></script>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
