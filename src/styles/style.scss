@@ -5,5 +5,11 @@
 @import "footer.scss";
 
 body {
+  min-height: 100svh; // small viewport height
+  display: grid;
+  // auto -> header (så hög som innehållet)
+  // 1fr -> main (tar upp allt ledigt utrymme)
+  // auto -> footer (så hög som innehållet)
+  grid-template-rows: auto 1fr auto;
   font-family: Arial, sans-serif;
 }

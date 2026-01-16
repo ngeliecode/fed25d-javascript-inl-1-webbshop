@@ -1,18 +1,36 @@
+/*=======================================================
+====== LAYOUT FOR HEADER ================================
+=======================================================*/
+
 header {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  background-color: #dfdfdf;
+  background-color: #386362;
 }
 
-.navbar {
-  display: none;
+.bar {
+  grid-column: span 4;
+  background-color: beige;
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
 }
 
-.navbar.active {
-  display: flex;
-  background-color: red;
+.hamburger {
+  grid-column: span 1;
+  margin: 0.5rem;
+}
+
+h1 {
+  grid-column: span 2;
+  padding-block: 1rem;
+}
+
+.kundvagn {
+  grid-column: span 1;
+  justify-self: end;
+  margin: 0.5rem;
 }
 
 /*=======================================================
@@ -26,6 +44,7 @@ header {
   gap: 0.2rem;
   border: none;
   background-color: transparent;
+  cursor: pointer;
 }
 
 .hamburger span {

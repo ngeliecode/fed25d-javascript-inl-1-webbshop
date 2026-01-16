@@ -1,3 +1,9 @@
-nav {
-  padding: 1rem;
+.navbar {
+  grid-column: span 3;
+  display: none;
+}
+
+.navbar.active {
+  display: block;
+  background-color: white;
 }
