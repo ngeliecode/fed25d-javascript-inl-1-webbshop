@@ -1,4 +1,12 @@
-# Log files
+// Detta tror jag att jag sett i en modul och gjorde likadant
+# Operating System Junk
+Desktop.ini
+Thumbs.db
+.Spotlight-V100
+.Trashes
+
+// Standard som kommer med Vite
+# Logs
 logs
 *.log
 npm-debug.log*
@@ -7,28 +15,17 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# JS ecosystem
 node_modules
-
-# Operating System Junk
-Desktop.ini
-Thumbs.db
-.Spotlight-V100
-.Trashes
-.DS_Store
-
-# Generated files and folders
 dist
 dist-ssr
 *.css.map
-
-# Local files
 *.local
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
+.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
