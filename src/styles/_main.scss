@@ -7,6 +7,10 @@ h2 {
   padding: 1rem;
 }
 
+.btn {
+  border-radius: 0.5rem;
+}
+
 .product-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
