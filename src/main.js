@@ -33,11 +33,60 @@ const products = [
     img: 'doftljus.jpg',
   },
   {
+    name: 'Doftljus',
+    price: 109,
+    rating: 5,
+    category: 'doftljus',
+    img: 'doftljus.jpg',
+  },
+  {
+    name: 'Doftljus',
+    price: 109,
+    rating: 5,
+    category: 'doftljus',
+    img: 'doftljus.jpg',
+  },
+  {
+    name: 'Doftljus',
+    price: 109,
+    rating: 5,
+    category: 'doftljus',
+    img: 'doftljus.jpg',
+  },
+  {
     name: 'Doftpinnar',
     price: 129,
     rating: 4,
     category: 'doftpinnar',
     img: 'doftpinnar.jpg',
+  },
+  {
+    name: 'Doftpinnar',
+    price: 129,
+    rating: 4,
+    category: 'doftpinnar',
+    img: 'doftpinnar.jpg',
+  },
+  {
+    name: 'Doftpinnar',
+    price: 129,
+    rating: 4,
+    category: 'doftpinnar',
+    img: 'doftpinnar.jpg',
+  },
+  {
+    name: 'Doftpinnar',
+    price: 129,
+    rating: 4,
+    category: 'doftpinnar',
+    img: 'doftpinnar.jpg',
+  },
+  {
+    name: 'Muggar',
+    price: 99,
+    rating: 3,
+    category: 'muggar',
+    img: 'muggar.jpg',
   },
   {
     name: 'Muggar',
@@ -55,33 +104,37 @@ let filteredProducts = Array.from(products);
 //========= FILTER BUTTONS ================================================
 //=========================================================================
 
+const productsListing = document.querySelector('#products');
+
 const doftljusFilterBtn = document.querySelector('#doftljusFilterBtn');
 const doftpinnarFilterBtn = document.querySelector('#doftpinnarFilterBtn');
 const muggarFilterBtn = document.querySelector('#muggarFilterBtn');
+const showAllFilterBtn = document.querySelector('#showAllFilterBtn');
 
 doftljusFilterBtn.addEventListener('click', filterByDoftljusCategory);
 doftpinnarFilterBtn.addEventListener('click', filterByDoftpinnarCategory);
 muggarFilterBtn.addEventListener('click', filterByMuggarCategory);
+showAllFilterBtn.addEventListener('click', showAllProducts);
+
+function showAllProducts() {
+  filteredProducts = Array.from(products);
+  printProducts();
+}
 
 function filterByDoftljusCategory() {
   filteredProducts = products.filter(product => product.category == 'doftljus');
-
   printProducts();
 }
 
 function filterByDoftpinnarCategory() {
   filteredProducts = products.filter(product => product.category == 'doftpinnar');
-
   printProducts();
 }
 
 function filterByMuggarCategory() {
   filteredProducts = products.filter(product => product.category == 'muggar');
-
   printProducts();
 }
-
-const productsListing = document.querySelector('#products');
 
 printProducts();
 
@@ -105,5 +158,3 @@ function printProducts() {
     productsListing.innerHTML += html;
   }
 }
-
-// 138 RADER MED KOD
