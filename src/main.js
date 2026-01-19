@@ -97,14 +97,14 @@ const products = [
   },
 ];
 
+const productsListing = document.querySelector('#products');
+
 // Global variabel
 let filteredProducts = Array.from(products);
 
 //=========================================================================
 //========= FILTER BUTTONS ================================================
 //=========================================================================
-
-const productsListing = document.querySelector('#products');
 
 const doftljusFilterBtn = document.querySelector('#doftljusFilterBtn');
 const doftpinnarFilterBtn = document.querySelector('#doftpinnarFilterBtn');
@@ -115,6 +115,44 @@ doftljusFilterBtn.addEventListener('click', filterByDoftljusCategory);
 doftpinnarFilterBtn.addEventListener('click', filterByDoftpinnarCategory);
 muggarFilterBtn.addEventListener('click', filterByMuggarCategory);
 showAllFilterBtn.addEventListener('click', showAllProducts);
+
+//=========================================================================
+//========= SORT BUTTONS ==================================================
+//=========================================================================
+
+const sortByNameBtn = document.querySelector('#sortByNameBtn');
+sortByNameBtn.addEventListener('click', sortByName);
+
+const sortByPriceBtn = document.querySelector('#sortByPriceBtn');
+sortByPriceBtn.addEventListener('click', sortByPrice);
+
+// sort() = Array metod
+function sortByPrice() {
+  filteredProducts.sort((a, b) => b.price - a.price);
+  console.table(filteredProducts);
+  printProducts();
+}
+
+function sortByName() {
+  filteredProducts.sort((product1, product2) => {
+    const product1Name = product1.name.toUpperCase();
+    const product2Name = product2.name.toUpperCase();
+    if (product1Name < product2Name) {
+      return -1;
+    }
+    if (product1Name > product2Name) {
+      return 1;
+    }
+
+    return 0;
+  });
+
+  printProducts();
+}
+
+//=========================================================================
+//=========================================================================
+//=========================================================================
 
 function showAllProducts() {
   filteredProducts = Array.from(products);
