@@ -20,7 +20,7 @@ function toggleMenu() {
 // const = deklarerar en variabel
 // products = variabelnamn
 // [] = array (lista)
-// {} = objekt (property = key + value)
+// {} = objekt (property = property name (key) + (value))
 
 //====================================================
 
@@ -30,7 +30,7 @@ const products = [
     // objektets egenskaper
     name: "Produktnamn 1", // key (string) + value (string)
     price: 15, // key (string) + value (number)
-    category: "",
+    category: "heminredning",
   },
   {
     name: "Produktnamn 2",
@@ -83,19 +83,26 @@ const products = [
 // 2. Välj vilka element jag vill koppla till arrayen
 const productName = document.querySelectorAll(".product-name");
 const productPrice = document.querySelectorAll(".product-price");
-const productCategory = dokument.querySelectorAll(".product-category");
+const productCategory = document.querySelectorAll(".product-category");
 /**
  * Jag deklarerar en variabel som heter productName
- * och den får värdet ??
+ * Uttrycket returnerar ett värde
+ *
+ *
+ *
+ *
  */
 
 /* 
-Jag vill koppla alla element med klassen 'product.name' till arrayen,
-var i arrayen?
-Jo, till varje objekt med key-egenskapen 'name' 
+Jag vill koppla alla element med klassen 'product.name' till arrayen.
+Var i arrayen?
+Jo, till varje objekt med key-property 'name' 
 
 Hur gör jag då för att koppla alla element med klassen 'product.name' 
 till varje objekt med key-egenskapen 'name'?
+
+
+
 
 då deklarerar jag variabeln productName och ger den ett värde,
 värdet är elementet med klassen 'product.name'
