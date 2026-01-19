@@ -1,3 +1,13 @@
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 /*=======================================================
 ====== LAYOUT FOR HEADER ================================
 =======================================================*/
@@ -7,14 +17,14 @@ header {
   grid-template-columns: repeat(4, 1fr);
   justify-content: space-between;
   align-items: center;
-  background-color: #386362;
+  background-color: rgb(211, 211, 211);
 }
 
 .bar {
   grid-column: span 4;
-  background-color: beige;
   padding-block: 0.5rem;
   padding-inline: 1rem;
+  background-color: white;
 }
 
 .hamburger {
