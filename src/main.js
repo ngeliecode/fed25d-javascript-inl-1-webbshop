@@ -1,126 +1,109 @@
-import "./styles/style.scss";
+import './styles/style.scss';
 
-//====================================================
-//========= NAVIGATION ===============================
-//====================================================
+//=======================================================
+//========= NAVIGATION ==================================
+//=======================================================
 
-const navBtn = document.querySelector("#hamburger");
-const navMenu = document.querySelector(".navbar");
+const navBtn = document.querySelector('#hamburger');
+const navMenu = document.querySelector('.navbar');
 
-navBtn.addEventListener("click", toggleMenu);
+navBtn.addEventListener('click', toggleMenu);
 
 function toggleMenu() {
-  navMenu.classList.toggle("active");
+  navMenu.classList.toggle('active');
 } // const toggleMenu = function() {...};
 
-//====================================================
-//========= PRODUCTS =================================
-//====================================================
+//=======================================================
+//========= PRODUCTS ====================================
+//=======================================================
 
 // const = deklarerar en variabel
 // products = variabelnamn
 // [] = array (lista)
 // {} = objekt (property = property name (key) + (value))
 
-//====================================================
-
-// 1. Skapa en produktlista (array med objekt)
+// 1. Deklarera en variabel för mina produkter
+// 2. Ge den ett värde i form av en array som innehåller objekt (produkterna)
 const products = [
   {
-    // objektets egenskaper
-    name: "Produktnamn 1", // key (string) + value (string)
-    price: 15, // key (string) + value (number)
-    category: "heminredning",
+    name: 'Doftljus',
+    price: 109,
+    rating: 5,
+    category: 'doftljus',
+    img: 'doftljus.jpg',
   },
   {
-    name: "Produktnamn 2",
-    price: 10,
-    category: "",
-  },
-  {
-    name: "Produktnamn 3",
-    price: 19,
-    category: "",
-  },
-  {
-    name: "Produktnamn 4",
-    price: 15,
-    category: "",
-  },
-  {
-    name: "Produktnamn 5",
-    price: 15,
-    category: "kläder",
-  },
-  {
-    name: "Produktnamn 6",
-    price: 15,
-    category: "elektronik",
-  },
-  {
-    name: "Produktnamn 7",
-    price: 15,
-    category: "heminredning",
+    name: 'Doftpinnar',
+    price: 129,
     rating: 4,
+    category: 'doftpinnar',
+    img: 'doftpinnar.jpg',
   },
   {
-    name: "Produktnamn 8",
-    price: 15,
-    category: "",
-  },
-  {
-    name: "Produktnamn 9",
-    price: 15,
-    category: "",
-  },
-  {
-    name: "Produktnamn 10",
-    price: 15,
-    category: "",
+    name: 'Muggar',
+    price: 99,
+    rating: 3,
+    category: 'muggar',
+    img: 'muggar.jpg',
   },
 ];
 
-// 2. Välj vilka element jag vill koppla till arrayen
-const productName = document.querySelectorAll(".product-name");
-const productPrice = document.querySelectorAll(".product-price");
-const productCategory = document.querySelectorAll(".product-category");
-/**
- * Jag deklarerar en variabel som heter productName
- * Uttrycket returnerar ett värde
- *
- *
- *
- *
- */
+// Global variabel
+let filteredProducts = Array.from(products);
 
-/* 
-Jag vill koppla alla element med klassen 'product.name' till arrayen.
-Var i arrayen?
-Jo, till varje objekt med key-property 'name' 
+//=========================================================================
+//========= FILTER BUTTONS ================================================
+//=========================================================================
 
-Hur gör jag då för att koppla alla element med klassen 'product.name' 
-till varje objekt med key-egenskapen 'name'?
+const doftljusFilterBtn = document.querySelector('#doftljusFilterBtn');
+const doftpinnarFilterBtn = document.querySelector('#doftpinnarFilterBtn');
+const muggarFilterBtn = document.querySelector('#muggarFilterBtn');
 
+doftljusFilterBtn.addEventListener('click', filterByDoftljusCategory);
+doftpinnarFilterBtn.addEventListener('click', filterByDoftpinnarCategory);
+muggarFilterBtn.addEventListener('click', filterByMuggarCategory);
 
+function filterByDoftljusCategory() {
+  filteredProducts = products.filter(product => product.category == 'doftljus');
 
-
-då deklarerar jag variabeln productName och ger den ett värde,
-värdet är elementet med klassen 'product.name'
-
-Nu ska jag använda variabeln jag just skapade för att ??
-
- */
-console.log(products);
-
-// 3. Koppla varje objekt till rätt element men en loop
-for (let i = 0; i < products.length; i++) {
-  productName[i].textContent = products[i].name;
-  productPrice[i].textContent = products[i].price + " kr";
-  productCategory[i].textContent = products[i].category;
+  printProducts();
 }
-// for = loop
-// let = deklarerar en variabel
-// i = variabelnamn
-// 0 = startvärde
 
-// 4. Nu kan jag se..
+function filterByDoftpinnarCategory() {
+  filteredProducts = products.filter(product => product.category == 'doftpinnar');
+
+  printProducts();
+}
+
+function filterByMuggarCategory() {
+  filteredProducts = products.filter(product => product.category == 'muggar');
+
+  printProducts();
+}
+
+const productsListing = document.querySelector('#products');
+
+printProducts();
+
+function printProducts() {
+  productsListing.innerHTML = '';
+
+  for (let i = 0; i < filteredProducts.length; i++) {
+    const currentProduct = filteredProducts[i];
+
+    const html = `
+      <article>
+        <h2>${currentProduct.name}</h2>
+        <div class="metadata">
+          <p>Pris: ${currentProduct.price} kr</p>
+          <p>Betyg: ${currentProduct.rating}/5</p>
+        </div>
+        <p>Kategori: ${currentProduct.category}</p>
+      </article>
+    `;
+
+    productsListing.innerHTML += html;
+  }
+}
+
+// 138 RADER MED KOD
