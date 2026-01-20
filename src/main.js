@@ -3,7 +3,7 @@ import './styles/style.scss';
 //=======================================================
 //========= NAVIGATION ==================================
 //=======================================================
-
+//test commit
 const navBtn = document.querySelector('#hamburger');
 const navMenu = document.querySelector('.navbar');
 
