@@ -3,7 +3,7 @@ import './styles/style.scss';
 //=======================================================
 //========= NAVIGATION ==================================
 //=======================================================
-//test commit
+
 const navBtn = document.querySelector('#hamburger');
 const navMenu = document.querySelector('.navbar');
 
@@ -12,6 +12,12 @@ navBtn.addEventListener('click', toggleMenu);
 function toggleMenu() {
   navMenu.classList.toggle('active');
 } // const toggleMenu = function() {...};
+
+//=======================================================
+//========= SHOPPING-CART ===============================
+//=======================================================
+
+const cart = [];
 
 //=======================================================
 //========= PRODUCTS ====================================
@@ -26,74 +32,89 @@ function toggleMenu() {
 // 2. Ge den ett värde i form av en array som innehåller objekt (produkterna)
 const products = [
   {
+    id: 1,
     name: 'Doftljus',
     price: 109,
     rating: 5,
     category: 'doftljus',
-    img: 'doftljus.jpg',
+    img: '',
   },
   {
+    id: 2,
     name: 'Doftljus',
     price: 109,
     rating: 5,
     category: 'doftljus',
-    img: 'doftljus.jpg',
+    img: '',
   },
   {
+    id: 3,
     name: 'Doftljus',
     price: 109,
     rating: 5,
     category: 'doftljus',
-    img: 'doftljus.jpg',
+    img: '',
   },
   {
+    id: 4,
     name: 'Doftljus',
     price: 109,
     rating: 5,
     category: 'doftljus',
-    img: 'doftljus.jpg',
+    img: '',
   },
   {
+    id: 5,
     name: 'Doftpinnar',
     price: 129,
     rating: 4,
     category: 'doftpinnar',
-    img: 'doftpinnar.jpg',
+    img: '',
   },
   {
+    id: 6,
     name: 'Doftpinnar',
     price: 129,
     rating: 4,
     category: 'doftpinnar',
-    img: 'doftpinnar.jpg',
+    img: '',
   },
   {
+    id: 7,
     name: 'Doftpinnar',
     price: 129,
     rating: 4,
     category: 'doftpinnar',
-    img: 'doftpinnar.jpg',
+    img: '',
   },
   {
+    id: 8,
     name: 'Doftpinnar',
     price: 129,
     rating: 4,
     category: 'doftpinnar',
-    img: 'doftpinnar.jpg',
+    img: '',
   },
   {
+    id: 9,
     name: 'Muggar',
     price: 99,
     rating: 3,
     category: 'muggar',
-    img: 'muggar.jpg',
+    img: {
+      src: './img/rod-kopp.jpeg',
+      width: 886,
+      height: 886,
+      alt: 'skapa alt-text',
+    },
   },
   {
+    id: 10,
     name: 'Muggar',
     price: 99,
     rating: 3,
     category: 'muggar',
-    img: 'muggar.jpg',
+    img: '',
   },
 ];
 
@@ -129,7 +150,6 @@ sortByPriceBtn.addEventListener('click', sortByPrice);
 // sort() = Array metod
 function sortByPrice() {
   filteredProducts.sort((a, b) => b.price - a.price);
-  console.table(filteredProducts);
   printProducts();
 }
 
@@ -179,20 +199,51 @@ printProducts();
 function printProducts() {
   productsListing.innerHTML = '';
 
+  let html = '';
+
   for (let i = 0; i < filteredProducts.length; i++) {
+    // HÄR börjar loopen
     const currentProduct = filteredProducts[i];
 
-    const html = `
+    let imgHtml = '';
+
+    if (currentProduct.img !== '') {
+      imgHtml = `
+        <div class="product-image">
+          <img src="${currentProduct.img.src}" 
+          width="${currentProduct.img.width}" 
+          height="${currentProduct.img.height}"
+          alt="${currentProduct.img.alt}"
+          loading="lazy">
+        </div>`;
+    }
+
+    html += `
       <article>
         <h2>${currentProduct.name}</h2>
+        ${imgHtml}
         <div class="metadata">
           <p>Pris: ${currentProduct.price} kr</p>
           <p>Betyg: ${currentProduct.rating}/5</p>
         </div>
-        <p>Kategori: ${currentProduct.category}</p>
+        <p class="visually-hidden">Kategori: ${currentProduct.category}</p>
+        <button data-id="${currentProduct.id}">Lägg till</button>
       </article>
     `;
-
-    productsListing.innerHTML += html;
+    // HÄR slutar loopen
   }
+
+  productsListing.innerHTML = html;
+
+  const buyButtons = document.querySelectorAll('#products button');
+  buyButtons.forEach(btn => {
+    btn.addEventListener('click', addProductToCart);
+  });
 }
+
+function addProductToCart(e) {
+  console.log('add product to cart');
+  console.log(e.target);
+}
+
+printProducts();
