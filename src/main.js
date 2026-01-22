@@ -1,8 +1,30 @@
 import './styles/style.scss';
 
-//=======================================================
-//========= NAVIGATION ==================================
-//=======================================================
+/* Mina variabler 
+const navBtn
+const navMenu
+const cart
+const productsList          --->  <section id="products">
+const products              --->  <article>
+const doftljusFilterBtn     --->  <button id="doftljusFilterBtn"
+const doftpinnarFilterBtn
+const muggarFilterBtn
+const showAllFilterBtn
+const sortByNameBtn
+const sortByPriceBtn
+let filteredProducts
+let html
+*/
+
+/* Mina funktioner 
+printProducts 
+sortByName
+sortByPrice
+*/
+
+//== nav =====================================================
+//========= NAVIGATION =======================================
+//============================================================
 
 const navBtn = document.querySelector('#hamburger');
 const navMenu = document.querySelector('.navbar');
@@ -13,26 +35,32 @@ function toggleMenu() {
   navMenu.classList.toggle('active');
 } // const toggleMenu = function() {...};
 
-//=======================================================
+//== cart =====================================================
 //========= SHOPPING-CART ===============================
 //=======================================================
 
 const cart = [];
 
-//====================================================================
-//========= PRODUCTS =================================================
-//====================================================================
+//== products ===============================================================================================================
+//========= (VARIABLE) PRODUCTS ===================================================================================
+//=================================================================================================================
 
 /**
- * Jag har skapat en variabel åt min produktlista.
+ * Här har jag skapat en variabel åt min produktlista.
  * Jag kommer använda variabeln senare till att koppla min <section id=products>.
  */
 
-// Variabel (variabelnamn = värde)
-
-// const = deklarerar en variabel
-// [] = Array (lista)
-// {} = Objekt (property = property name (key) + (value))
+/* Bra att komma ihåg! 
+const = deklarerar en variabel
+[] = Array (lista)
+{} = Objekt (property = property name (key) + (value))
+arrayLiteral = [ ... ]
+Variabel (variabelnamn = värde)
+// const arrayMedObjekt = [
+//  { name: 'objekt', price: 99 },
+//  { name: 'objekt', price: 129 }
+// ];
+*/
 
 const products = [
   // <article>
@@ -142,8 +170,8 @@ const products = [
   // </article>
 ];
 
-//=========================================================================================================================================
-//========= FILTER BUTTONS ================================================================================================================
+//== filter-btn =======================================================================================================================================
+//============== FILTER BUTTONS ================================================================================================================
 //=========================================================================================================================================
 
 /**
@@ -172,11 +200,11 @@ showAllFilterBtn.addEventListener('click', showAllProducts); // <-- HÄR
  */
 
 //=========================================================================================================================================
-//========= SORT BUTTONS ==================================================================================================================
+//======= (VARIABLES) SORT BUTTONS ==================================================================================================================
 //=========================================================================================================================================
 
-/**
- * Jag har skapat variabler för varje sorterings-knapp i <main>,
+/** BESKRIVNING
+ * HÄR har jag skapat variabler för varje sorterings-knapp i <main>,
  * jag har använt document.querySelector till att välja vilka element som ska höra till vilka variabler.
  */
 
@@ -185,74 +213,105 @@ const sortByNameBtn = document.querySelector('#sortByNameBtn');
 const sortByPriceBtn = document.querySelector('#sortByPriceBtn');
 
 /**
- * Sedan har jag lagt till en event-lyssnare till varje variabel som ska vänta tills någon "klickar" på knappen
- * och där med trigga en funktion.
+ * Sedan har jag lagt till en event-lyssnare till varje variabel
+ * som väntar tills någon "klickar" på knappen för att sen kunna trigga en funktion.
+ * Själva funktionen ser du under min kommentars-banner "(FUNCTIONS) SORT BUTTONS".
  */
 
 // namnetPåVariabeln.addEventListener('click', namnetPåFunktionen);
 sortByNameBtn.addEventListener('click', sortByName); // <-- HÄR sker kopplingen mellan funktionen och knappen
 sortByPriceBtn.addEventListener('click', sortByPrice); // <-- HÄR
 
+//===========================================================================================================================================
+//===========================================================================================================================================
+//===========================================================================================================================================
+
 /**
- * Själva funktionen ser du under min kommentars-banner "(FUNCTIONS) SORT BUTTONS".
+ * Här deklarerar jag en variabel med typen "let"
+ * och ger den namnet filteredProducts.
+ * Den ska lagra en array som ska kunna uppdateras/ändras beroende på vad jag vill ska visas på sidan.
  */
 
-//=========================================================================================================================================
-//======= (FUNCTIONS) FILTER BUTTONS ======================================================================================================
-//=========================================================================================================================================
+// Global variabel är?
+let filteredProducts = Array.from(products); // Kopplar på arrayen ur variabeln "products" jag skapade förut (under min banner "PRODUCTS")
+const productsList = document.querySelector('#products');
+
+//===========================================================================================================================================
+//======= (FUNCTIONS) FILTER BUTTONS ========================================================================================================
+//===========================================================================================================================================
+
+/** BESKRIVNING
+ * HÄR finns funktionerna jag kopplat till filtrerings-knapparna.
+ * En funktion kopplas till en knapp med hjälp av en event-lyssnare (se kopplingen under "FILTER BUTTONS")
+ * Själva funktionen går ut på att när en användare klickat på knappen så händer det något på sidan.
+ * Vad det är som "händer" står före respektive funktion.
+ */
 
 // function() { KODBLOCK }
 
-/**
- * HÄR är funktionerna jag kopplat till knapparna.
- * En funktion kopplas till knappen med hjälp av en event-lyssnare (se kopplingen under "FILTER BUTTONS")
- * Själva funktionen går ut på att när en användare klickat på knappen så händer det något på sidan.
- * Vad det är som händer står före respektive funktion.
- */
+/* Vad gör denna funktion?
+    Den skapar en ny array som lagras inuti variabeln "filteredProducts".
+    Den nya arrayen skapas genom att den befintliga arrayen filtreras och endast objekt med kategorin 'doftljus' tas med.
+    Efter filtreringen så "printas" endast doftljusen ut på sidan med printProducts() (se funktionen under ... )
+*/
+/* { kodblocket }
 
-// Visar alla doftljus
+        filteredProducts  --> (let-variabel)    -->  Ny array         --> DOFTLJUS produkter
+        products          --> (const-variabel)  -->  Orginal array    --> ALLA produkter
+        filter()          --> (array-metod)     -->  Skapar ny array 
+        product           --> (parameter-namn)  --> 
+        printProducts()   --> (funktion)
+        
+        filter( KODBLOCK? ) innehåller:
+ */
 function filterByDoftljusCategory() {
-  filteredProducts = products.filter(product => product.category == 'doftljus');
-  printProducts();
+  filteredProducts = products.filter(product => product.category == 'doftljus'); // .filter( HÄR INNE SKER NÅGOT SUPER KOMPLEXT );
+  printProducts(); // printar ut innehållet på sidan
 }
 
-// HEJ MITT FRAMTIDA JAG! HÄR SLUTADE JAG FÖR DAGEN IGÅR.
-
-// Kodblocket innehåller let-variabeln "filtered products"
-// Variabelns värde har variabeln "products"
-// .filter() skapar en ny array
-// Om product.category == 'doftljus' är true ...
-
-// Visar alla doftpinnar
 function filterByDoftpinnarCategory() {
   filteredProducts = products.filter(product => product.category == 'doftpinnar');
   printProducts();
 }
 
-// Visar alla muggar
 function filterByMuggarCategory() {
   filteredProducts = products.filter(product => product.category == 'muggar');
   printProducts();
 }
 
-// Visar ALLA produkter
 function showAllProducts() {
   filteredProducts = Array.from(products); // Kopplar på arrayen ur variabeln "products" jag skapade förut (under min banner "PRODUCTS")
   printProducts();
 }
 
-// Arrayen har inte än tillkopplats några element
+// Produkt-arrayen har inte än tillkopplats några element?
 
-//=========================================================================================================================================
-//========= (FUNCTIONS) SORT BUTTONS ======================================================================================================
-//=========================================================================================================================================
+//===========================================================================================================================================
+//========= (FUNCTIONS) SORT BUTTONS ========================================================================================================
+//===========================================================================================================================================
 
-// sort() = Array metod
+/** BESKRIVNING
+ * HÄR finns funktionerna jag kopplat till sorterings-knapparna.
+ * En funktion kopplas till en knapp med hjälp av en event-lyssnare (se kopplingen under "SORT BUTTONS")
+ * Själva funktionen går ut på att när en användare klickat på knappen så händer det något på sidan.
+ * Vad det är som "händer" står före respektive funktion.
+ */
+
+// function() { KODBLOCK }
+
+/* Vad gör funktionen?
+    Den sorterar produktlistan efter pris (dyrast först).
+    Efter sorteringen så anropas printProducts och man kan visuellt se produkterna ändra ordning då man trycker på sorterings-knappen.
+*/
 function sortByPrice() {
   filteredProducts.sort((a, b) => b.price - a.price);
   printProducts();
 }
 
+/* Vad gör funktionen?
+    Den sorterar produktlistan efter VAD?.
+    Efter sorteringen så anropas printProducts och man kan visuellt se produkterna ändra ordning då man trycker på sorterings-knappen.
+*/
 function sortByName() {
   filteredProducts.sort((product1, product2) => {
     const product1Name = product1.name.toUpperCase();
@@ -263,46 +322,52 @@ function sortByName() {
     if (product1Name > product2Name) {
       return 1;
     }
-
     return 0;
   });
-
   printProducts();
 }
 
-//=========================================================================
-//=========================================================================
-//=========================================================================
+//============================================================================================================================================
+//========== FUNCTION > LOOP =================================================================================================================
+//============================================================================================================================================
 
-/**
- * Här deklarerar jag en variabel med typen "let"
- * och gen den namnet filteredProducts.
- * Tanken med den variabeln är att den ska användas till att visa filtrerade produkter
- */
+/** BESKRIVNING
+ * Här är en funktion som heter printProducts deklarerad.
+ * Funktionen är programmerad till att */
 
-// Global variabel?
-let filteredProducts = Array.from(products); // Kopplar på arrayen ur variabeln "products" jag skapade förut (under min banner "PRODUCTS")
-const productsListing = document.querySelector('#products');
+/* Vad gör funktionen? 
+Den tömmer innehållet i ett element för att för att kunna bygga upp det på nytt i en loop. 
+*/
+/* { kodblocket }
 
-//=========================================================================
-//=========================================================================
-//=========================================================================
+  printProducts() {}   --> (funktion)
+    let html = ''        --> let-variabel med tom sträng (värdet kan ändras senare, den är inte konstant) 
+    productListing       --> (const-variabel)  
+    innerHTML            --> egenskap till productList   --> Allt inuti <section id="products">
+    innerHTML = '';      --> Tömmer innehåll i <section id="products">
 
-// En funktion som innehåller en loop
+*/
+
+/* Vad gör loopen? */
+/* (..) 
+
+    for                  --> deklarerar en loop
+    for (...) {...}      --> ( Hur loopen ska bete sig ) { Vad som ska loopas}
+    let i = 0;           --> loop-variabel med värdet 0
+    i                    --> index
+    0;                   --> startar på första platsen i arrayen
+
+*/
+
 function printProducts() {
-  productsListing.innerHTML = '';
+  let html = ''; // tom sträng som startvärde
+  productsList.innerHTML = ''; // tömmer elementet
 
-  let html = '';
-
-  // for loop
   for (let i = 0; i < filteredProducts.length; i++) {
-    // HÄR börjar loopen
     const currentProduct = filteredProducts[i];
 
     let imgHtml = '';
 
-    // if (villkor) = Om villkoret är sant körs koden
-    // "Om det finns en bild (true) - visa den"
     if (currentProduct.img !== '') {
       imgHtml = `
         <figure class="product-image">
@@ -314,7 +379,6 @@ function printProducts() {
         </figure>`;
     }
 
-    // Inner-html
     html += `
       <article>
         <h2>${currentProduct.name}</h2>
@@ -335,7 +399,11 @@ function printProducts() {
 
   // Läggs efter loopen
   // Allt jag bygger inuti loopen visar sig här
-  productsListing.innerHTML = html;
+  productsList.innerHTML = html;
+
+  //=========================================================================================================================================
+  //========= BUY BUTTONS ===================================================================================================================
+  //=========================================================================================================================================
 
   // Köpknapp
   const buyButtons = document.querySelectorAll('#products button.buy');
@@ -356,8 +424,11 @@ function printProducts() {
   });
 }
 
+//=========================================================================================================================================
+//========= (FUNCTION) BUY BUTTONS ========================================================================================================
+//=========================================================================================================================================
+
 function increaseProductCount(e) {
-  // tar emot event-objekt
   const clickedBtnId = e.target.dataset.id;
   const input = document.querySelector(`#amount-${clickedBtnId}`);
   input.value = Number(input.value) + 1; // ökar värdet med 1
@@ -365,7 +436,7 @@ function increaseProductCount(e) {
 
 function decreaseProductCount(e) {
   const clickedBtnId = e.target.dataset.id;
-  const input = document.querySelector(`#amount-${clickedBtnId}`); // väljer element med ID amount
+  const input = document.querySelector(`#amount-${clickedBtnId}`); // väljer element
   input.value = Number(input.value) - 1; // minskar värdet med 1
 }
 
