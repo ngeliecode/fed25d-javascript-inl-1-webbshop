@@ -43,6 +43,7 @@
         <div id="cart">Varukorgen är tom.</div>
       </section>
       <section id="products" class="products-list"></section>
+
       <form>
         <!-- FORM VALIDATION 
         Formuläret valideras av webbläsaren innan det skickas iväg helt. 
@@ -51,78 +52,158 @@
         HTML5-validering 
           - type
           - pattern
-             [0-9] -> endast siffror
+             [0-9]  -> endast siffror
              [^0-9] -> nekar siffror 
-             {5} -> fem siffror
+             {5}    -> fem siffror
+             .{2,}  -> minst två bokstäver
           - required  
 
         Validation feedback checklist (a11y)
         [ ] visuellt
           [ ] färg 
-          [ ] form
+            [ ] röd border 
+            [ ] rosa bakgrund
+            [ ] rött kryss / grön bock
+            [ ] rött felmeddelande
           [ ] ikon
-        [ ] text som beskriver felet 
+            [ ] kryss
+            [ ] bock
+        [ ] felmeddelande 
         [ ] koppling till skärmläsare
 
         -->
         <fieldset class="form-section form-section--contact">
           <legend>Fyll i kontaktuppgifter</legend>
+
           <div class="form-item form-item--field form-item--first-name">
-            <label for="first-name">Förnamn</label>
+            <label for="first-name">Förnamn *</label>
             <input
               type="text"
-              name="firstName"
               id="first-name"
-              class="first-name"
-              pattern="[^0-9]+"
-              title="Namnet kan inte innehålla siffor"
+              name="firstName"
+              required
+              minlength="2"
+              placeholder=" "
+              pattern=".{2,}"
+              title="Vänligen ange ditt förnamn (minst 2 tecken)"
               required
             />
+            <span class="icon error-icon">✖</span>
+            <span class="icon success-icon">✓</span>
+            <div class="error-message">Vänligen ange ditt förnamn (minst 2 tecken)</div>
           </div>
+
           <div class="form-item form-item--field form-item--last-name">
-            <label for="last-name">Efternamn</label>
+            <label for="last-name">Efternamn *</label>
             <input
               type="text"
-              name="lastName"
               id="last-name"
-              pattern="[^0-9]+"
-              title="Namnet kan inte innehålla siffor"
+              name="lastName"
+              minlength="2"
+              placeholder=" "
+              pattern=".{2,}"
+              title="Vänligen ange ditt efternamn (minst 2 tecken)"
               required
             />
+            <span class="icon error-icon">✖</span>
+            <span class="icon success-icon">✓</span>
+            <div class="error-message">Vänligen ange ditt efternamn (minst 2 tecken)</div>
           </div>
+
           <div class="form-item form-item--field form-item--address">
-            <label for="street-address">Gatuadress</label>
-            <input type="text" name="streetAddress" id="street-address" required />
-          </div>
-          <div class="form-item form-item--field form-item--postal-code">
-            <label for="postal-code">Postnummer</label>
+            <label for="street-address">Gatuadress *</label>
             <input
               type="text"
-              name="postalCode"
-              id="postal-code"
-              pattern="[0-9]{5}"
-              maxlength="5"
-              title="Postnumret måste bestå av av fem siffror. Exempel: 123 45"
+              id="street-address"
+              name="streetAddress"
+              minlength="5"
+              placeholder=" "
+              pattern=".{5,}"
+              title="Vänligen ange din gatuadress (minst 5 tecken)"
               required
             />
+            <span class="icon error-icon">✖</span>
+            <span class="icon success-icon">✓</span>
+            <div class="error-message">Vänligen ange din gatuadress (minst 5 tecken)</div>
           </div>
-          <div class="form-item form-item--field form-item--postal-city">
-            <label for="postal-city">Postort</label>
-            <input type="text" name="postalCity" class="postal-city" id="postal-city" required />
-          </div>
+
           <div class="form-item form-item--field form-item--entry-code">
             <label for="entry-code">Ev portkod</label>
-            <input type="text" name="entryCode" class="entry-code" id="entry-code" />
+            <input
+              type="text"
+              id="entry-code"
+              name="entryCode"
+              minlength="1"
+              placeholder=" "
+              pattern=".{1,}"
+              title="Portkoden måste bestå av minst ett tecken"
+              aria-label="1-digit prefix"
+            />
+            <span class="icon error-icon">✖</span>
+            <span class="icon success-icon">✓</span>
+            <div class="error-message">Portkoden måste bestå av minst ett tecken</div>
           </div>
+
+          <div class="form-item form-item--field form-item--postal-code">
+            <label for="postal-code">Postnummer *</label>
+            <input
+              type="text"
+              id="postal-code"
+              name="postalCode"
+              pattern="[0-9]{5}"
+              minlength="5"
+              maxlength="5"
+              placeholder=" "
+              title="Vänligen ange giltigt postnummer (5 tecken)"
+              required
+            />
+            <span class="icon error-icon">✖</span>
+            <span class="icon success-icon">✓</span>
+            <div class="error-message">Vänligen ange giltigt postnummer (5 tecken)</div>
+          </div>
+
+          <div class="form-item form-item--field form-item--postal-city">
+            <label for="postal-city">Postort *</label>
+            <input
+              type="text"
+              id="postal-city"
+              name="postalCity"
+              pattern="{2}"
+              minlength="2"
+              placeholder=" "
+              aria-label="2-digit prefix"
+              required
+            />
+            <span class="icon error-icon">✖</span>
+            <span class="icon success-icon">✓</span>
+            <div class="error-message">Vänligen ange din postort (minst 2 tecken)</div>
+          </div>
+
           <div class="form-item form-item--field form-item--phone">
             <label for="phone">Mobilnummer</label>
-            <input type="tel" name="phone" id="phone" required />
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              pattern="[\d\s\-]{10,}"
+              maxlength="10"
+              placeholder=" "
+              aria-label="2-digit prefix"
+            />
+            <span class="icon error-icon">✖</span>
+            <span class="icon success-icon">✓</span>
+            <div class="error-message">Vänligen ange giltigt mobilnummer (10 tecken)</div>
           </div>
+
           <div class="form-item form-item--field form-item--email">
-            <label for="email">E-postadress</label>
-            <input type="email" name="email" id="email" required />
+            <label for="email">E-postadress *</label>
+            <input type="email" id="email" name="email" placeholder=" " title="Ange en giltig e-postadress" required />
+            <span class="icon error-icon">✖</span>
+            <span class="icon success-icon">✓</span>
+            <div class="error-message">Vänligen ange en giltig e-postadress</div>
           </div>
         </fieldset>
+
         <fieldset class="form-section form-section--payment">
           <legend>Välj betalmetod</legend>
 
@@ -132,6 +213,7 @@
               Kort
             </label>
           </div>
+
           <div class="form-item form-item--radio form-item--invoice">
             <label>
               <input type="radio" name="paymentMethod" value="invoice" />
@@ -139,14 +221,17 @@
             </label>
           </div>
         </fieldset>
+
         <fieldset class="form-section form-section--consent">
           <legend>Samtycke</legend>
+
           <div class="form-item form-item--checkbox form-item--gdpr">
             <label for="gdpr">
               <input type="checkbox" id="gdpr" name="gdpr" required />
               Jag godkänner behandling av personuppgifter
             </label>
           </div>
+
           <div class="form-item form-item--checkbox form-item--newsletter">
             <label for="newsletter">
               <input type="checkbox" id="newsletter" name="newsletter" checked />
@@ -154,6 +239,7 @@
             </label>
           </div>
         </fieldset>
+
         <button>Beställ</button>
       </form>
     </main>
