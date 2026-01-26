@@ -37,15 +37,9 @@ h1 {
   padding-block: 1rem;
 }
 
-.kundvagn {
-  grid-column: span 1;
-  justify-self: end;
-  margin: 0.5rem;
-}
-
-/*=======================================================
-====== BUTTON ===========================================
-=======================================================*/
+/*============================================================
+====== MENU BUTTON ===========================================
+=============================================================*/
 
 .hamburger {
   display: flex;
@@ -62,4 +56,31 @@ h1 {
   height: 0.2rem;
   background-color: black;
   border-radius: 10px;
+}
+
+/*=======================================================
+====== CART BUTTON ======================================
+=======================================================*/
+
+.btn-cart {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  grid-column: span 1;
+  justify-self: end;
+  margin: 0.5rem;
+  background-color: transparent;
+  border: none;
+}
+
+.btn-cart__icon {
+  fill: transparent;
+  stroke: rgb(107, 107, 107);
+  stroke-width: 2;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.btn-cart__count {
+  color: rgb(33, 33, 33);
 }

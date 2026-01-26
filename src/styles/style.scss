@@ -1,15 +1,28 @@
-@import "reset.scss";
-@import "nav.scss";
-@import "header.scss";
-@import "main.scss";
-@import "footer.scss";
+@import 'reset.scss';
+@import 'nav.scss';
+@import 'header.scss';
+@import 'main.scss';
+@import 'form.scss';
+@import 'footer.scss';
 
 body {
-  min-height: 100svh; // small viewport height
-  display: grid;
-  // auto -> header (så hög som innehållet)
-  // 1fr -> main (tar upp allt ledigt utrymme)
-  // auto -> footer (så hög som innehållet)
-  grid-template-rows: auto 1fr auto;
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.btn {
+  background-color: white;
+  color: #555;
+  border: 2px solid #bbb;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.7rem;
+  padding-inline: 0.5rem;
+  padding-block: 0.3rem;
+}
+
+.btn:hover {
+  background-color: black;
+  color: white;
+  border: 2px solid black;
 }
