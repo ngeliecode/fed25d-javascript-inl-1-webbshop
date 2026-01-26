@@ -10,7 +10,7 @@
     <header>
       <div class="bar">Detta är en bar med information</div>
       <!-- lägg till aria-label="Stäng meny" för när menyn är öppen -->
-      <button id="hamburger" class="hamburger" aria-label="Öppna meny">
+      <button id="btnNav" class="hamburger" aria-label="Öppna meny">
         <span></span>
         <span></span>
         <span></span>
@@ -18,8 +18,16 @@
 
       <h1>Namn på webbshopen</h1>
 
-      <button id="kundvagn" class="kundvagn">Varukorg</button>
-      <nav class="navbar">
+      <button class="btn-cart" aria-label="Varukorg">
+        <svg class="btn-cart__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+          />
+        </svg>
+        <span id="cartCount" class="btn-cart__count" aria-live="polite" aria-atomic="true">0</span>
+      </button>
+
+      <nav id="navMenu" class="navbar">
         <ul>
           <li>Hem</li>
           <li>nånting</li>
@@ -31,25 +39,28 @@
     <main>
       <div>
         Välj ditt element:
-        <button id="filterByFireBtnEl" class="btn">Fire</button>
-        <button id="filterByEarthBtnEl" class="btn">Earth</button>
-        <button id="filterByAirBtnEl" class="btn">Air</button>
-        <button id="filterByWaterBtnEl" class="btn">Water</button>
+        <button id="filterByFireBtnEl" class="btn" lang="en">Fire</button>
+        <button id="filterByEarthBtnEl" class="btn" lang="en">Earth</button>
+        <button id="filterByAirBtnEl" class="btn" lang="en">Air</button>
+        <button id="filterByWaterBtnEl" class="btn" lang="en">Water</button>
         <button id="filterByShowAllBtnEl" class="btn">Välj alla</button>
       </div>
+
       <section class="hidden">
         <h2>Varukorg</h2>
         <p class="cart-total" id="cartTotal">0 kr</p>
         <div id="cart">Varukorgen är tom.</div>
       </section>
+
       <section id="products" class="products-list"></section>
 
-      <form>
+      <form id="orderForm">
         <!-- FORM VALIDATION 
         Formuläret valideras av webbläsaren innan det skickas iväg helt. 
         Det måste vara i ett korrekt ifyllt format först.
 
         HTML5-validering 
+        "novalidate" webbläsarens egna felmeddelanden försvinner så att användaren inte får dubbel feedback
           - type
           - pattern
              [0-9]  -> endast siffror
@@ -57,20 +68,28 @@
              {5}    -> fem siffror
              .{2,}  -> minst två bokstäver
           - required  
-
+  
         Validation feedback checklist (a11y)
-        [ ] visuellt
-          [ ] färg 
-            [ ] röd border 
-            [ ] rosa bakgrund
-            [ ] rött kryss / grön bock
-            [ ] rött felmeddelande
-          [ ] ikon
-            [ ] kryss
-            [ ] bock
-        [ ] felmeddelande 
-        [ ] koppling till skärmläsare
-
+        - Visuellt
+          [x] färg 
+            [x] röd border 
+            [x] rosa bakgrund
+            [x] rött kryss / grön bock
+            [x] rött felmeddelande
+          [x] ikon
+            [x] kryss
+            [x] bock
+            [x] aria-hidden="true" <-- För skärmläsare - används på ikoner för att dölja dom.
+          [x] felmeddelande   
+        - Skärmläsare
+          ARIA-attribut
+            [ ] aria-invalid - Talar om att fältet innehållet fel
+              [ ] aria-invalid="true" - Felaktigt fält
+              [ ] aria-invalid="false" - Korrekt fält
+            [ ] aria-describedby="" - Kopplar fältet till felmeddelandet
+            [ ] aria-live
+              [ ] aria-live="polite" - Skärmläsare läser upp ändringar
+     
         -->
         <fieldset class="form-section form-section--contact">
           <legend>Fyll i kontaktuppgifter</legend>
@@ -88,9 +107,9 @@
               title="Vänligen ange ditt förnamn (minst 2 tecken)"
               required
             />
-            <span class="icon error-icon">✖</span>
-            <span class="icon success-icon">✓</span>
-            <div class="error-message">Vänligen ange ditt förnamn (minst 2 tecken)</div>
+            <span class="icon error-icon" aria-hidden="true">✖</span>
+            <span class="icon success-icon" aria-hidden="true">✓</span>
+            <div class="error-message" aria-hidden="true">Vänligen ange ditt förnamn (minst 2 tecken)</div>
           </div>
 
           <div class="form-item form-item--field form-item--last-name">
@@ -154,6 +173,7 @@
               minlength="5"
               maxlength="5"
               placeholder=" "
+              aria-describedby="email-error"
               title="Vänligen ange giltigt postnummer (5 tecken)"
               required
             />
@@ -240,7 +260,7 @@
           </div>
         </fieldset>
 
-        <button>Beställ</button>
+        <button type="submit" class="btn btn--submit" disabled>Skicka beställning</button>
       </form>
     </main>
 
