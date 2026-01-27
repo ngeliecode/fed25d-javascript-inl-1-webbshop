@@ -1,3 +1,13 @@
+main {
+  padding: 1rem;
+}
+
+.cart {
+  border: 1px solid black;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
 .products-list > * {
   min-width: 0;
 }
@@ -27,4 +37,27 @@ article {
   border: 1px solid black;
   grid-column: span 1;
   padding: 1rem;
+}
+
+article input {
+  width: 100%;
+}
+
+//=============
+//== BEKRÄFTELSE RUTA ==
+//=============
+
+.order-confirmation {
+  border: 1px solid black;
+  padding: 1rem;
+}
+
+//=============
+//== DESKTOP ==
+//=============
+
+@media (min-width: 75em) {
+  .products-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }

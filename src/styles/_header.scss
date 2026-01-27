@@ -1,13 +1,3 @@
-.visually-hidden {
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
 /*=======================================================
 ====== LAYOUT FOR HEADER ================================
 =======================================================*/
@@ -17,10 +7,10 @@ header {
   grid-template-columns: repeat(4, 1fr);
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(205, 205, 205);
+  background-color: rgb(255, 255, 255);
 }
 
-.bar {
+.information-bar {
   grid-column: span 4;
   padding-block: 0.5rem;
   padding-inline: 1rem;
@@ -35,6 +25,11 @@ header {
 h1 {
   grid-column: span 2;
   padding-block: 1rem;
+  text-transform: uppercase;
+}
+
+.btn-cart {
+  grid-column: span 1;
 }
 
 /*============================================================
@@ -56,6 +51,37 @@ h1 {
   height: 0.2rem;
   background-color: black;
   border-radius: 10px;
+}
+
+/*============================================================
+====== MENU ==================================================
+=============================================================*/
+
+.navMenu {
+  display: none;
+}
+
+.navMenu.active {
+  grid-column: span 4;
+  display: grid;
+  gap: 0.5rem;
+  padding: 1rem;
+  width: 100%;
+}
+
+.btn.btn--filter {
+  grid-column: span 4;
+  border: none;
+  justify-self: left;
+  text-transform: none;
+  font-size: 0.8rem;
+}
+
+.btn.btn--filter:hover {
+  background-color: transparent;
+  color: black;
+  font-size: 0.9rem;
+  border: none;
 }
 
 /*=======================================================
@@ -83,4 +109,54 @@ h1 {
 
 .btn-cart__count {
   color: rgb(33, 33, 33);
+}
+
+//=========
+//== TABLET
+//=========
+
+@media (min-width: 48em) {
+  /*=======================================================
+====== LAYOUT FOR HEADER ================================
+=======================================================*/
+
+  h1 {
+    grid-column: span 3;
+  }
+
+  .btn-cart {
+    grid-column: span 1;
+  }
+
+  .navMenu {
+    grid-column: span 4;
+  }
+
+  //============================================================
+  //===( TABLET )=== MENU ==================================================
+  //=============================================================
+
+  .hamburger {
+    display: none;
+  }
+
+  h1 {
+    padding-left: 1rem;
+  }
+
+  .navMenu {
+    display: block;
+    gap: 1rem;
+    padding: 1rem;
+    width: 100%;
+  }
+
+  .btn.btn--filter {
+    font-size: 0.9rem;
+    grid-template-columns: span 4;
+  }
+
+  .btn.btn--filter:hover {
+    font-size: 1rem;
+  }
 }

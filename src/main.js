@@ -3,6 +3,16 @@ import './styles/style.scss';
 // Bygga HTML  →  Hämta element  →  Koppla klick
 //   (DOM)          (JS)             (events)
 
+// Deklarera variabeln (const, let) innan du använder den!
+
+// Jag kan anropa/köra en funktion som jag deklarerar i framtiden. Jag kan köra en funktion som inte är född ännu.
+// Ta reda på hoisting
+
+// Variabler som deklareras inuti en funktion kan inte användas utanför funktionen. Global/lokal variabel?
+// MEN funktionen kan returnera den, jag får tillbaka den
+
+// Scope = ?
+
 //===========================================================================================================================
 //========= NAVIGATION ======================================================================================================
 //===========================================================================================================================
@@ -366,8 +376,12 @@ function addProductToCart(e) {
   // Återställ input-fältets värde till 0 efter tryck på köp-knappen
   inputField.value = 0;
 
-  // Kör funktionerna som inte är deklarerade än
-  updateCartTotals();
+  // Kör funktionerna som inte är deklarerade ännu
+  // Uppdatera totalsumma i varukorgen
+  calculateCartTotal();
+  renderCartTotal();
+
+  // Uppdatera varor i varukorgen
   printCart();
 }
 
@@ -375,24 +389,26 @@ function addProductToCart(e) {
 //========= CART =============================================================================================================================
 //============================================================================================================================================
 
-function updateCartTotals() {
-  // Kolla vilka produkter vi har i varukorgen (loopa igenom)
-  // Kolla priset
-  // Gångra priset med antalet
-  // Plussa ihop alla varors totalpris till en totalsumma för hela varukorgen
-
-  let cartTotal = 0;
+// Räkna ut totalsumman i varukorgen
+function calculateCartTotal() {
+  let total = 0;
 
   for (let i = 0; i < cart.length; i++) {
-    const productSum = cart[i].price * cart[i].amount;
-    cartTotal += productSum;
+    total += cart[i].price * cart[i].amount;
   }
+  // Vad är totalsumman just nu?
+  return total;
+}
 
-  cartTotalEl.innerHTML = `${cartTotal} kr`;
+// Skriv ut (rendera) resultatet (varukorgens totalsumma just nu) som html
+function renderCartTotal() {
+  const total = calculateCartTotal();
 
+  cartTotalEl.textContent = `${total} kr`;
   highlightCartTotalChange();
 }
 
+// Skapa loop för plus, minus, radera-knapp
 function printCart() {
   cartSection.innerHTML = '';
 
@@ -424,11 +440,12 @@ function printCart() {
   });
 }
 
+// Markera produktvarukorgen visuellt
 function highlightCartTotalChange() {
   cartTotalEl.classList.add('highlight-price');
 
   const SECONDS_IN_MS = 1000;
-  const SECONDS = 1;
+  const SECONDS = 1; // Vänta 1 sek
   setTimeout(removeCartTotalHighlight, SECONDS_IN_MS * SECONDS);
 }
 
@@ -453,7 +470,8 @@ function decreaseProductFromCart(e) {
 
   // Skriv ut en uppdaterad varukorg i HTML-strukturen
   printCart();
-  updateCartTotals();
+  calculateCartTotal();
+  renderCartTotal();
 }
 
 function increaseProductFromCart(e) {
@@ -465,13 +483,37 @@ function deleteProductFromCart(e) {
 
   cart.splice(rowId, 1);
 
-  // Skriv ut en uppdaterad varukorg i HTML-strukturen
+  // Kör funktioner
   printCart();
-  updateCartTotals();
+  calculateCartTotal();
+  renderCartTotal();
 }
 
 const cartTotalEl = document.querySelector('#cartTotal');
+
+//============================================================================================================================================
+//========= CART COUNT =============================================================================================================================
+//============================================================================================================================================
+
+// TO DO
+
 const cartCountEl = document.querySelector('#cartCount');
+
+/* Hur många produkter finns i varukorgen just nu?
+1. Skapa en räknare (totalCount)
+2. Gå igenom hela varukorgen
+3. Lägg ihop alla (amount)
+4. Skriv ut siffran i <span id="cartCount"> 
+*/
+function updateCartIcon() {
+  let totalCount = 0;
+
+  for (let i = 0; i < cart.length; i++) {
+    totalCount += cart[i].amount;
+  }
+
+  cartCountEl.textContent = totalCount; // textContent istället för innerHTML
+}
 
 //=========================================================================================================================================
 //========= SUBMIT BUTTON =================================================================================================================
@@ -479,7 +521,7 @@ const cartCountEl = document.querySelector('#cartCount');
 
 const form = document.querySelector('#orderForm');
 const inputs = document.querySelectorAll('input[required]');
-const submitButton = form.querySelector('button[type="submit"]');
+const orderButton = form.querySelector('button[type="submit"]');
 
 // Kontrollera om alla fält är korrekta
 function checkFormValidity() {
@@ -493,7 +535,7 @@ function checkFormValidity() {
   });
 
   // Aktivera/inaktivera knappen
-  submitButton.disabled = !allValid;
+  orderButton.disabled = !allValid;
 }
 
 inputs.forEach(input => {
@@ -523,3 +565,36 @@ function validateInput(input) {
 
 // Initial kontroll vid sidladdning
 checkFormValidity();
+
+//=========================================================================================================================================
+//========= BESTÄLLNINGS BEKRÄFTELSE  =================================================================================================================
+//=========================================================================================================================================
+
+const orderConfirmationEl = document.querySelector('#orderConfirmation');
+const confirmationTotalEl = document.querySelector('#confirmationTotal');
+const closeConfirmationBtnEl = document.querySelector('#closeConfirmationBtn');
+const placeOrderBtnEl = document.querySelector('#placeOrderBtn');
+
+// Anropa funktion då användaren klickar på "Skicka beställning" i beställningsformuläret
+placeOrderBtnEl.addEventListener('click', placeOrderBtnFu);
+
+// Anropa funktion då användaren klickar på "Stäng" i beställningsbekräftelse-rutan
+closeConfirmationBtnEl.addEventListener('click', closeOrderConfirmationBtnFu);
+
+// Klick på "Skicka beställning"
+function placeOrderBtnFu() {
+  orderConfirmationFu();
+}
+
+// Visa bekräftelserutan
+function orderConfirmationFu() {
+  const total = calculateCartTotal();
+
+  confirmationTotalEl.textContent = `${total} kr`;
+  orderConfirmationEl.hidden = false;
+}
+
+// Klick på "Stäng"
+function closeOrderConfirmationBtnFu() {
+  orderConfirmationEl.hidden = true;
+}
