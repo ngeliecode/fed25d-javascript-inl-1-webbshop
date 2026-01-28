@@ -28,31 +28,28 @@
       </button>
 
       <nav id="navMenu" class="navMenu">
-        <button id="filterByFireBtnEl" class="btn btn--filter" lang="en">Doftljus 'Fire'</button>
-        <button id="filterByEarthBtnEl" class="btn btn--filter" lang="en">Doftljus 'Earth'</button>
-        <button id="filterByAirBtnEl" class="btn btn--filter" lang="en">Doftljus 'Air'</button>
-        <button id="filterByWaterBtnEl" class="btn btn--filter" lang="en">Doftljus 'Water'</button>
-        <button id="filterByShowAllBtnEl" class="btn btn--filter">Visa alla doftljus</button>
+        <button id="filterByFireBtn" class="btn btn--filter" lang="en">Doftljus 'Fire'</button>
+        <button id="filterByEarthBtn" class="btn btn--filter" lang="en">Doftljus 'Earth'</button>
+        <button id="filterByAirBtn" class="btn btn--filter" lang="en">Doftljus 'Air'</button>
+        <button id="filterByWaterBtn" class="btn btn--filter" lang="en">Doftljus 'Water'</button>
+        <button id="filterByShowAllBtn" class="btn btn--filter">Visa alla doftljus</button>
       </nav>
     </header>
 
     <main>
-      <!-- göm sen? -->
+      <!-- Varukorgen -->
       <section class="cart">
-        <h2>Varukorg</h2>
-        <p class="cart-total" id="cartTotal">0 kr</p>
-        <div id="cart">Varukorgen är tom.</div>
-      </section>
+        <h2>Varukorg heading</h2>
+        <p class="cart-total" id="cartTotalHeader">0 kr</p>
 
-      <section id="orderConfirmation" class="order-confirmation" hidden>
-        <h2>Tack för din beställning!</h2>
-        <p>Din beställning är mottagen och redo att behandlas.</p>
-        <p><strong>Leveranstid:</strong> 2–4 arbetsdagar</p>
-        <p>
-          <strong>Totalt:</strong>
-          <span id="confirmationTotal"></span>
-        </p>
-        <button id="closeConfirmationBtn">Stäng</button>
+        <!-- Här visas produkterna och antalet -->
+        <div id="cart">Varukorgen är tom.</div>
+        <!-- Ordersammanställning -->
+        <section id="orderSummary" class="order-summary">
+          <p id="discount"></p>
+          <p>Totalsumma inkl. frakt: <span id="cartTotal">0 kr</span></p>
+          <p id="shippingCost"></p>
+        </section>
       </section>
 
       <section id="products" class="products-list"></section>
