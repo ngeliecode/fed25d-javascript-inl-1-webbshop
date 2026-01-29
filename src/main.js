@@ -154,12 +154,15 @@ const productsEl = document.querySelector('#products');
 const cartSection = document.querySelector('#cart');
 const cartTotalEl = document.querySelector('#cartTotal');
 const cartCountEl = document.querySelector('#cartCount');
-const cartTotalHeaderEl = document.querySelector('#cartTotalHeader');
+const cartBaseTotalEl = document.querySelector('#cartBaseTotal');
 
 // Formulär
 const form = document.querySelector('#orderForm');
 const inputs = document.querySelectorAll('input[required]');
 const orderButton = form.querySelector('button[type="submit"]');
+
+// Prissättning / affärsregler
+const discountInfo = document.querySelector('#discountInfo');
 
 // =========================================================================================================================================
 // INIT / EVENT-LYSSNARE ================================================================================================================================
@@ -206,23 +209,27 @@ function toggleMenu() {
   navMenu.classList.toggle('active');
 }
 
-// Filtreringsknappar (produkt-kategorier)
+// Filterknappar (produkt-kategorier)
 function filterByCategoryFireFu() {
   filteredProducts = products.filter(product => product.category == 'fire'); // .filter( HÄR INNE SKER NÅGOT SUPER KOMPLEXT );
   printProducts();
 }
+
 function filterByCategoryEarthFu() {
   filteredProducts = products.filter(product => product.category == 'earth');
   printProducts();
 }
+
 function filterByCategoryAirFu() {
   filteredProducts = products.filter(product => product.category == 'air');
   printProducts();
 }
+
 function filterByCategoryWaterFu() {
   filteredProducts = products.filter(product => product.category == 'water');
   printProducts();
 }
+
 function filterByCategoryShowAllFu() {
   filteredProducts = Array.from(products); // Kopplar på arrayen ur variabeln "products" jag skapade förut (under min banner "PRODUCTS")
   printProducts();
@@ -267,7 +274,9 @@ function addProductToCart(e) {
   printCart();
   updateCartTotal();
   updateCartCount();
+  calculateCartTotalWithRules();
 }
+
 function decreaseProductFromCart(e) {
   // Kolla vilken knapp vi har klickat på, dvs. läs av dess id från "data-id"
   const rowId = Number(e.target.dataset.id);
@@ -285,6 +294,7 @@ function decreaseProductFromCart(e) {
   updateCartTotal();
   updateCartCount();
 }
+
 function increaseProductFromCart(e) {
   // Kolla vilken knapp vi har klickat på, dvs. läs av dess id från "data-id"
   const rowId = Number(e.target.dataset.id);
@@ -302,6 +312,7 @@ function increaseProductFromCart(e) {
   updateCartCount();
   updateCartTotal();
 }
+
 function deleteProductFromCart(e) {
   const rowId = Number(e.target.dataset.id);
 
@@ -327,11 +338,63 @@ function checkFormValidity() {
   // Aktivera/inaktivera knappen
   orderButton.disabled = !allValid;
 }
+
 function validateInput(input) {
   const isValid = input.checkValidity();
 
   // Uppdatera aria-invalid attribut
   input.setAttribute('aria-invalid', !isValid);
+}
+
+// Prissättning / affärsregler
+function calculateCartTotalWithRules(date = new Date()) {
+  let baseTotal = 0;
+
+  // Loopa igenom alla produkter i varukorgen
+  for (let i = 0; i < cart.length; i++) {
+    // Vad är produkternas grundpris
+    let price = cart[i].price;
+
+    // Regel 2: helgpåslag +15 % (påverkar pris per produkt)
+    // Avgör OM regeln gäller (TID)
+    const day = date.getDay(); // 0 = sön, 5 = fre, 6 = lör
+    const hour = date.getHours();
+
+    const isFridayAfter15 = day === 5 && hour >= 15;
+    const isSaturday = day === 6;
+    const isSundayBefore03 = day === 0 && hour < 3;
+
+    const isWeekendSurchargeActive = isFridayAfter15 || isSaturday || isSundayBefore03;
+
+    // Applicera regeln OM den gäller (tid)
+    if (isWeekendSurchargeActive) {
+      price *= 1.15; // +15 % på produktens pris
+    }
+
+    // Lägg till produktens (ev justerade) pris till grundsumman
+    baseTotal += price * cart[i].amount;
+  }
+
+  // TOTALSUMMA EFTER PRODUKTREGLER
+  let finalTotal = baseTotal;
+
+  // REGEL 1 - MÅNDAGSRABATT (-10 %) på beställningen
+
+  // Avgör OM regeln gäller
+  const MONDAY = 1;
+  const isMondayDiscountActive = date.getDay() === MONDAY && date.getHours() < 10;
+
+  // Applicera regeln OM den gäller
+  if (isMondayDiscountActive) {
+    finalTotal *= 0.9;
+  }
+
+  // RETURNERA DATA TILL UI
+  return {
+    baseTotal, // före alla rabatter
+    finalTotal, // efter alla regler
+    isMondayDiscountActive, // UI behöver detta för text
+  };
 }
 
 // ============================================================================================================================================
@@ -395,6 +458,7 @@ function printProducts() {
     btn.addEventListener('click', decreaseProductCount);
   });
 }
+
 function printCart() {
   // loopa igenom varukorgen och uppdatera UI
   cartSection.innerHTML = ''; // rensa varukorgens html
@@ -427,18 +491,24 @@ function printCart() {
   cartIncreaseButtons.forEach(btn => {
     btn.addEventListener('click', increaseProductFromCart);
   });
+
+  updateCartCount();
 }
+
 function updateCartTotal() {
-  // Räkna ut totalsumman i varukorgen och skriv ut den i UI
-  let total = 0;
+  // HÄMTA DATA FRÅN LOGIKEN
+  const { baseTotal, finalTotal, isMondayDiscountActive } = calculateCartTotalWithRules();
 
-  for (let i = 0; i < cart.length; i++) {
-    total += cart[i].price * cart[i].amount;
-  }
+  // GRUNDSUMMA (före rabatter)
+  cartBaseTotalEl.textContent = `${Math.round(baseTotal)} kr`;
 
-  cartTotalHeaderEl.textContent = `${total} kr`;
-  cartTotalEl.textContent = `${total} kr`;
+  // SLUTSUMMA (efter alla regler)
+  cartTotalEl.textContent = `${Math.round(finalTotal)} kr`;
+
+  // RABATTINFO
+  discountInfo.textContent = isMondayDiscountActive ? 'Måndagsrabatt: 10 % på hela beställningen' : '';
 }
+
 function updateCartCount() {
   // Räkna ut antal produkter i varukorgen OCH uppdatera UI
   let totalCount = 0;

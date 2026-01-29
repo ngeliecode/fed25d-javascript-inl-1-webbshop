@@ -39,58 +39,25 @@
     <main>
       <!-- Varukorgen -->
       <section class="cart">
-        <h2>Varukorg heading</h2>
-        <p class="cart-total" id="cartTotalHeader">0 kr</p>
+        <h2>Varukorg</h2>
+        <p class="cart-total" id="cartBaseTotal">0 kr</p>
 
         <!-- Här visas produkterna och antalet -->
         <div id="cart">Varukorgen är tom.</div>
         <!-- Ordersammanställning -->
+        <h2>Ordersammanställning</h2>
         <section id="orderSummary" class="order-summary">
-          <p id="discount"></p>
+          <p id="discountInfo"></p>
           <p>Totalsumma inkl. frakt: <span id="cartTotal">0 kr</span></p>
           <p id="shippingCost"></p>
         </section>
       </section>
 
-      <section id="products" class="products-list"></section>
+      <section id="products" class="products-list">
+        <h2>Produkter</h2>
+      </section>
 
       <form id="orderForm">
-        <!-- FORM VALIDATION 
-        Formuläret valideras av webbläsaren innan det skickas iväg helt. 
-        Det måste vara i ett korrekt ifyllt format först.
-
-        HTML5-validering 
-        "novalidate" webbläsarens egna felmeddelanden försvinner så att användaren inte får dubbel feedback
-          - type
-          - pattern
-             [0-9]  -> endast siffror
-             [^0-9] -> nekar siffror 
-             {5}    -> fem siffror
-             .{2,}  -> minst två bokstäver
-          - required  
-  
-        Validation feedback checklist (a11y)
-        - Visuellt
-          [x] färg 
-            [x] röd border 
-            [x] rosa bakgrund
-            [x] rött kryss / grön bock
-            [x] rött felmeddelande
-          [x] ikon
-            [x] kryss
-            [x] bock
-            [x] aria-hidden="true" <-- För skärmläsare - används på ikoner för att dölja dom.
-          [x] felmeddelande   
-        - Skärmläsare
-          ARIA-attribut
-            [ ] aria-invalid - Talar om att fältet innehållet fel
-              [ ] aria-invalid="true" - Felaktigt fält
-              [ ] aria-invalid="false" - Korrekt fält
-            [ ] aria-describedby="" - Kopplar fältet till felmeddelandet
-            [ ] aria-live
-              [ ] aria-live="polite" - Skärmläsare läser upp ändringar
-     
-        -->
         <fieldset class="form-section form-section--contact">
           <legend>Fyll i kontaktuppgifter</legend>
 
