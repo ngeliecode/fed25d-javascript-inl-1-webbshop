@@ -6,13 +6,12 @@ En webbshop byggd med HTML, SCSS och Vanilla JavaScript. Projektet är gjort som
 
 - Produktlista med minst 10 produkter och flera kategorier
 - Filtrering av produkter baserat på kategori
-- Affärsregler:
-  - Måndagsrabatt 10 %
-  - Helgpåslag 15 %
+- Sortera på pris och rating
+- 3 st affärsregler
 - Bekräftelseruta efter genomförd beställning
 - Responsiv layout för mobil, tablet och desktop
 - Feedback på varukorgsikon
-- Tillgänglighet har vägts in på en grundläggande nivå och det finns utrymme för vidare förbättringar.
+- Tillgänglighet har vägts in och finns utrymme för förbättringar.
 
 ## Tekniker
 
@@ -35,7 +34,9 @@ https://ngeliecode.github.io/fed25d-javascript-inl-1-webbshop/
 
 ## Screenshots på slutresultat
 
-_(läggs till när designen är helt färdig)_
+### Startsida
+
+![Startsida](public/img/mobile.png)
 
 ## Författare
 
