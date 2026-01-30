@@ -36,7 +36,7 @@ https://ngeliecode.github.io/fed25d-javascript-inl-1-webbshop/
 
 ### Startsida
 
-![Startsida](public/img/mobile.png)
+![Startsida](public/img/tablet.png)
 
 ## Författare
 
