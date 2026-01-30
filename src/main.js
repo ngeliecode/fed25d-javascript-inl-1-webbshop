@@ -97,12 +97,12 @@ const products = [
     price: 99,
     rating: 3,
     category: 'fire',
-    img: {
+    img: '' /*{
       src: 'bild.jpeg',
       width: 886,
       height: 886,
       alt: 'skapa alt-text',
-    },
+    },*/,
   },
   {
     id: 10,
@@ -147,6 +147,9 @@ const filterByAirBtnEl = document.querySelector('#filterByAirBtn');
 const filterByWaterBtnEl = document.querySelector('#filterByWaterBtn');
 const filterByShowAllBtnEl = document.querySelector('#filterByShowAllBtn');
 
+// Sorterings-dropdown
+const sortProductsSelect = document.querySelector('#sortProducts');
+
 // Produkter
 const productsEl = document.querySelector('#products');
 
@@ -155,14 +158,20 @@ const cartSection = document.querySelector('#cart');
 const cartTotalEl = document.querySelector('#cartTotal');
 const cartCountEl = document.querySelector('#cartCount');
 const cartBaseTotalEl = document.querySelector('#cartBaseTotal');
+const shippingEl = document.querySelector('#shippingCost');
 
 // Formulär
-const form = document.querySelector('#orderForm');
+const orderForm = document.querySelector('#orderForm');
 const inputs = document.querySelectorAll('input[required]');
-const orderButton = form.querySelector('button[type="submit"]');
+const orderButton = document.querySelector('#placeOrderBtn');
 
 // Prissättning / affärsregler
 const discountInfo = document.querySelector('#discountInfo');
+
+// Bekräftelseruta
+const orderConfirmationEl = document.querySelector('#orderConfirmation');
+const confirmationTotalEl = document.querySelector('#confirmationTotal');
+const closeConfirmationBtn = document.querySelector('#closeConfirmation');
 
 // =========================================================================================================================================
 // INIT / EVENT-LYSSNARE ================================================================================================================================
@@ -181,6 +190,9 @@ filterByAirBtnEl.addEventListener('click', filterByCategoryAirFu);
 filterByWaterBtnEl.addEventListener('click', filterByCategoryWaterFu);
 filterByShowAllBtnEl.addEventListener('click', filterByCategoryShowAllFu);
 
+// Sorterings-dropdown
+sortProductsSelect.addEventListener('change', handleSortChange);
+
 // Formulär
 inputs.forEach(input => {
   // Validera när användaren lämnar fältet
@@ -198,6 +210,14 @@ inputs.forEach(input => {
     }
     checkFormValidity();
   });
+});
+
+// Bekräftelseruta
+closeConfirmationBtn.addEventListener('click', closeOrderConfirmation);
+
+orderForm.addEventListener('submit', e => {
+  e.preventDefault(); // stoppa reload
+  showOrderConfirmation();
 });
 
 // =========================================================================================================================================
@@ -389,19 +409,52 @@ function calculateCartTotalWithRules(date = new Date()) {
     finalTotal *= 0.9;
   }
 
+  // REGEL 5 – FRI FRAKT VID MER ÄN 15 PRODUKTER
+  let totalProductCount = 0;
+
+  for (let i = 0; i < cart.length; i++) {
+    totalProductCount += cart[i].amount;
+  }
+
+  let shippingCost = 0;
+
+  if (totalProductCount > 15) {
+    shippingCost = 0; // Fri frakt
+  } else {
+    shippingCost = 25 + finalTotal * 0.1;
+  }
+
   // RETURNERA DATA TILL UI
   return {
     baseTotal, // före alla rabatter
     finalTotal, // efter alla regler
+    shippingCost, // fraktkostnad
+    totalProductCount, // kan vara bra för UI/debug
     isMondayDiscountActive, // UI behöver detta för text
   };
+}
+
+// Bekräftelseruta
+function showOrderConfirmation() {
+  // Visa bekräftelsen
+  const { finalTotal } = calculateCartTotalWithRules();
+
+  confirmationTotalEl.textContent = `${Math.round(finalTotal)} kr`;
+  orderConfirmationEl.hidden = false;
+
+  orderConfirmationEl.scrollIntoView({ behavior: 'smooth' });
+}
+
+function closeOrderConfirmation() {
+  // Stäng bekräftelsen
+  orderConfirmationEl.hidden = true;
 }
 
 // ============================================================================================================================================
 // UI-FUNKTIONER =============================================================================================================================
 // ============================================================================================================================================
 
-// Töm produktlistan och bygg upp på nytt beroende på..
+// inner-HTML
 function printProducts() {
   productsEl.innerHTML = ''; // tömmer elementet
   let html = ''; // tom sträng som startvärde
@@ -432,7 +485,8 @@ function printProducts() {
         </div>
         <p class="visually-hidden">Kategori: ${currentProduct.category}</p>
         <button class="btn decrease" data-id="${currentProduct.id}">-</button>
-        <input type="number" id="amount-${currentProduct.id}" disabled>
+        <label for="amount">
+        <input type="number" id="amount-${currentProduct.id}" aria-label="Antal produkter" disabled>
         <button class="btn increase" data-id="${currentProduct.id}">+</button>
         <button class="btn buy" data-id="${currentProduct.id}">Lägg till</button>
       </article>
@@ -460,6 +514,10 @@ function printProducts() {
 }
 
 function printCart() {
+  console.log(
+    'Render products order:',
+    filteredProducts.map(p => p.name)
+  );
   // loopa igenom varukorgen och uppdatera UI
   cartSection.innerHTML = ''; // rensa varukorgens html
 
@@ -497,16 +555,19 @@ function printCart() {
 
 function updateCartTotal() {
   // HÄMTA DATA FRÅN LOGIKEN
-  const { baseTotal, finalTotal, isMondayDiscountActive } = calculateCartTotalWithRules();
+  const { baseTotal, finalTotal, shippingCost, isMondayDiscountActive } = calculateCartTotalWithRules();
 
   // GRUNDSUMMA (före rabatter)
   cartBaseTotalEl.textContent = `${Math.round(baseTotal)} kr`;
 
-  // SLUTSUMMA (efter alla regler)
-  cartTotalEl.textContent = `${Math.round(finalTotal)} kr`;
+  // SLUTSUMMA (efter regler + frakt)
+  cartTotalEl.textContent = `${Math.round(finalTotal + shippingCost)} kr`;
 
   // RABATTINFO
   discountInfo.textContent = isMondayDiscountActive ? 'Måndagsrabatt: 10 % på hela beställningen' : '';
+
+  // FRAKTINFO
+  shippingEl.textContent = shippingCost === 0 ? 'Fri frakt' : `Frakt: ${Math.round(shippingCost)} kr`;
 }
 
 function updateCartCount() {
@@ -544,4 +605,36 @@ function decreaseProductCount(e) {
     amount = 0;
   }
   input.value = amount;
+}
+
+// Sorterings-dropdown
+function handleSortChange(e) {
+  console.log('Sort change fired:', e.target.value);
+  const value = e.target.value;
+
+  if (!value) return;
+
+  filteredProducts.sort((a, b) => {
+    if (value === 'name-asc') {
+      return a.name.localeCompare(b.name, 'en', {
+        sensitivity: 'base',
+      });
+    }
+
+    if (value === 'price-asc') {
+      return a.price - b.price;
+    }
+
+    if (value === 'price-desc') {
+      return b.price - a.price;
+    }
+
+    if (value === 'rating-desc') {
+      return b.rating - a.rating;
+    }
+
+    return 0;
+  });
+
+  printProducts();
 }

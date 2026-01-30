@@ -1,25 +1,29 @@
-main {
+.cart {
   padding: 1rem;
+  background-color: #f3f3f3;
 }
 
-//=============
-//== CART ==
-//=============
+.cart-heading {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
 
-.cart {
-  border: 1px solid black;
-  padding: 1rem;
-  margin-bottom: 1rem;
+h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .order-summary {
-  border: 1px solid black;
   margin-block: 0.5rem;
 }
 
-//=============
-//========
-//=============
+.sort {
+  text-align: end;
+  margin: 0.5rem;
+}
 
 .products-list > * {
   min-width: 0;
@@ -47,7 +51,6 @@ img {
 }
 
 article {
-  border: 1px solid black;
   grid-column: span 1;
   padding: 1rem;
 }
@@ -56,19 +59,15 @@ article input {
   width: 100%;
 }
 
-//=============
-//== BEKRÄFTELSE RUTA ==
-//=============
-
 .order-confirmation {
-  border: 1px solid black;
+  border: 2px solid #333;
   padding: 1rem;
+  margin-top: 2rem;
+  background-color: #fff;
+  width: 50%;
 }
 
-//=============
-//== DESKTOP ==
-//=============
-
+// DESKTOP
 @media (min-width: 75em) {
   .products-list {
     grid-template-columns: repeat(4, 1fr);

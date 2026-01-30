@@ -8,7 +8,7 @@
   </head>
   <body>
     <header>
-      <div class="information-bar">Detta är en bar med information</div>
+      <div class="information-bar">Fri frakt vid köp av 16 doftljus</div>
       <!-- lägg till aria-label="Stäng meny" för när menyn är öppen -->
       <button id="btnNav" class="hamburger" aria-label="Öppna meny">
         <span></span>
@@ -16,7 +16,7 @@
         <span></span>
       </button>
 
-      <h1>Namn på webbshopen</h1>
+      <h1>Doftljusbutiken</h1>
 
       <button class="btn-cart" aria-label="Varukorg">
         <svg class="btn-cart__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
@@ -37,24 +37,41 @@
     </header>
 
     <main>
-      <!-- Varukorgen -->
-      <section class="cart">
-        <h2>Varukorg</h2>
-        <p class="cart-total" id="cartBaseTotal">0 kr</p>
+      <section id="orderConfirmation" class="order-confirmation" hidden aria-live="polite">
+        <h2>Tack för din beställning!</h2>
+        <p>Din beställning är mottagen och redo att behandlas.</p>
+        <p>
+          <strong>Totalt:</strong>
+          <span id="confirmationTotal">0 kr</span>
+        </p>
+        <p><strong>Leveranstid:</strong> 2–4 arbetsdagar</p>
+        <button type="button" id="closeConfirmation">Stäng</button>
+      </section>
 
-        <!-- Här visas produkterna och antalet -->
-        <div id="cart">Varukorgen är tom.</div>
-        <!-- Ordersammanställning -->
-        <h2>Ordersammanställning</h2>
-        <section id="orderSummary" class="order-summary">
-          <p id="discountInfo"></p>
-          <p>Totalsumma inkl. frakt: <span id="cartTotal">0 kr</span></p>
-          <p id="shippingCost"></p>
-        </section>
+      <section class="sort">
+        <label for="sortProducts" class="visually-hidden">Sortera</label>
+        <select name="sortProducts" id="sortProducts" class="sort-products">
+          <option value="name asc">Namn A → Ö</option>
+          <option value="price-asc">Pris stigande</option>
+          <option value="price-desc">Pris fallande</option>
+          <option value="rating-desc">Rating: högst först</option>
+        </select>
       </section>
 
       <section id="products" class="products-list">
         <h2>Produkter</h2>
+      </section>
+
+      <section class="cart">
+        <h2 class="cart-heading">Varukorg</h2>
+        <p class="cart-total" id="cartBaseTotal">0 kr</p>
+        <div id="cart">Varukorgen är tom.</div>
+        <section id="orderSummary" class="order-summary">
+          <h3>Ordersammanställning</h3>
+          <p id="discountInfo"></p>
+          <p>Totalsumma inkl. frakt: <span id="cartTotal">0 kr</span></p>
+          <p id="shippingCost"></p>
+        </section>
       </section>
 
       <form id="orderForm">
@@ -67,7 +84,6 @@
               type="text"
               id="first-name"
               name="firstName"
-              required
               minlength="2"
               placeholder=" "
               pattern=".{2,}"
@@ -140,7 +156,6 @@
               minlength="5"
               maxlength="5"
               placeholder=" "
-              aria-describedby="email-error"
               title="Vänligen ange giltigt postnummer (5 tecken)"
               required
             />

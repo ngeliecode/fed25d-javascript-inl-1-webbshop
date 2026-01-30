@@ -1,61 +1,80 @@
-/*=======================================================
-====== LAYOUT FOR HEADER ================================
-=======================================================*/
-
 header {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(240, 240, 240);
 }
 
 .information-bar {
   grid-column: span 4;
-  padding-block: 0.5rem;
-  padding-inline: 1rem;
-  background-color: white;
+  padding-block: 0.7rem;
+  background-color: black;
+  color: white;
+  font-size: 0.8rem;
+  text-align: center;
 }
-
-.hamburger {
-  grid-column: span 1;
-  margin: 0.5rem;
-}
-
-h1 {
-  grid-column: span 2;
-  padding-block: 1rem;
-  text-transform: uppercase;
-}
-
-.btn-cart {
-  grid-column: span 1;
-}
-
-/*============================================================
-====== MENU BUTTON ===========================================
-=============================================================*/
 
 .hamburger {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  grid-column: span 1;
   gap: 0.2rem;
-  border: none;
+  justify-content: center;
   background-color: transparent;
   cursor: pointer;
+  margin: 1rem;
+  padding-block: 1rem;
+  border: none;
 }
 
 .hamburger span {
   width: 1.5rem;
-  height: 0.2rem;
-  background-color: black;
+  height: 0.15rem;
+  background-color: rgb(107, 107, 107);
   border-radius: 10px;
 }
 
-/*============================================================
-====== MENU ==================================================
-=============================================================*/
+h1 {
+  grid-column: span 2;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 1rem;
+  padding-block: 1rem;
+  text-align: center;
+  color: black;
+}
+
+.btn-cart {
+  grid-column: span 1;
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-self: end;
+  margin: 1rem;
+  padding-block: 1rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-cart__icon {
+  fill: transparent;
+  stroke: rgb(107, 107, 107);
+  stroke-width: 2;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.btn-cart__icon:hover {
+  stroke: black;
+}
+
+.btn-cart__count {
+  color: rgb(33, 33, 33);
+}
 
 .navMenu {
   display: none;
@@ -84,76 +103,46 @@ h1 {
   border: none;
 }
 
-/*=======================================================
-====== CART BUTTON ======================================
-=======================================================*/
-
-.btn-cart {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  grid-column: span 1;
-  justify-self: end;
-  margin: 0.5rem;
-  background-color: transparent;
-  border: none;
-}
-
-.btn-cart__icon {
-  fill: transparent;
-  stroke: rgb(107, 107, 107);
-  stroke-width: 2;
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
-.btn-cart__count {
-  color: rgb(33, 33, 33);
-}
-
-//=========
-//== TABLET
-//=========
+//===========================================================
+//== TABLET =================================================
+//===========================================================
 
 @media (min-width: 48em) {
-  /*=======================================================
-====== LAYOUT FOR HEADER ================================
-=======================================================*/
-
   h1 {
     grid-column: span 3;
+    padding: 0;
+    margin-block: 0;
   }
 
   .btn-cart {
     grid-column: span 1;
+    margin-block: 0;
   }
 
   .navMenu {
     grid-column: span 4;
   }
 
-  //============================================================
-  //===( TABLET )=== MENU ==================================================
-  //=============================================================
-
   .hamburger {
     display: none;
   }
 
   h1 {
-    padding-left: 1rem;
+    font-size: 1.3rem;
+    text-align: left;
   }
 
   .navMenu {
     display: block;
     gap: 1rem;
-    padding: 1rem;
+    padding-inline: 0.5rem;
+    padding-bottom: 0.5rem;
     width: 100%;
   }
 
   .btn.btn--filter {
     font-size: 0.9rem;
-    grid-template-columns: span 4;
+    background-color: transparent;
   }
 
   .btn.btn--filter:hover {

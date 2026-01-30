@@ -6,7 +6,7 @@ form {
 
 legend {
   margin-block: 2rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: bold;
   color: #333;
 }
@@ -28,7 +28,6 @@ legend {
   color: #555;
 }
 
-/* Standard */
 .form-item--field input {
   width: 100%;
   border-radius: 4px;
@@ -61,7 +60,7 @@ input:invalid:focus {
 }
 
 .success-icon {
-  color: #4caf50;
+  color: green;
 }
 
 .error-message {
